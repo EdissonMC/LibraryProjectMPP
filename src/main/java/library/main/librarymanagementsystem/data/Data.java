@@ -4,6 +4,7 @@ import library.main.librarymanagementsystem.models.Book;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Data {
     public static List<Book> listBooks = new ArrayList<>();
@@ -21,9 +22,6 @@ public class Data {
 
     }
 
-    public static void main(String[] args) {
-
-    }
 
     public static   List<Book> requestBooks(){
         return listBooks;
@@ -34,4 +32,28 @@ public class Data {
         listBooks.add(book);
         return true;
     };
+
+    public static void removeBook(String oldIsbn){
+        System.out.println("oldISBN to delete : " + oldIsbn);
+       listBooks= listBooks.stream().filter(book->!book.getIsbn().equals(oldIsbn)).collect(Collectors.toList());
+        System.out.println("remaining books " + listBooks);
+    }
+
+    public static void updateBook(Book updatedBook){
+
+        listBooks= listBooks.stream()
+                .map(currentBook->{
+                    if(currentBook.getIsbn().equals(updatedBook.getIsbn()))
+                        return updatedBook;
+                    return currentBook;
+                })
+                .collect(Collectors.toList());
+
+        System.out.println("list books UPDATED..." + listBooks);
+    }
+
+    public static void main(String[] args) {
+//        removeBook("123");
+//        removeBook("124");
+    }
 }

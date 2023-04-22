@@ -7,7 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
-import library.main.librarymanagementsystem.HelloApplication;
+import library.main.librarymanagementsystem.App;
 import library.main.librarymanagementsystem.data.Data;
 import library.main.librarymanagementsystem.models.Book;
 
@@ -73,49 +73,51 @@ public class LibraryController implements Initializable {
 
     @FXML
     protected void editBook() throws IOException {
+
+        // Recovering the item selected
         ObservableList<Integer> selectedIndices = booksList.getSelectionModel().getSelectedIndices();
 
+        // Veryfing if one item was seleted
         if (selectedIndices.size() == 1) {
+
             String bookToEdit = booksList.getItems().get(selectedIndices.get(0));
-            String oldIsbn = bookToEdit.split(";")[2];
+            String[] oldData = bookToEdit.split(";");
+
+            System.out.println("oldData Array "+ oldData);
+//            String oldIsbn = bookToEdit.split(";")[2];
 
 
-            EditBook eb = new EditBook();
-            String str = eb.getResult();
+            EditBookWindow dialogEditBook = new EditBookWindow(oldData[0],oldData[1],oldData[2], oldData[3] );
+
+            String str = dialogEditBook.getResult();
+
+            Book bookEdited = dialogEditBook.getResultBookEdited();
+            System.out.printf("Data bookEdited in controller, %s %s %s %s  \n",bookEdited.getTitle() ,bookEdited.getIsbn(),bookEdited.getCategory(), bookEdited.getListAuthors() );
 
             if (str != null) {
-                Path p = Paths.get("src/main/data/" + oldIsbn + ".txt");
 
-                File fileToDelete = new File(p.toString());
-                fileToDelete.delete();
-
-
-
-                Path p2 = Paths.get("src/main/data/" + str.split(";")[2] + ".txt");
-                File newFile = new File(p2.toString());
-
-                if(newFile.createNewFile()) {
-                    FileWriter myWriter = new FileWriter(String.valueOf(p2));
-                    myWriter.write(str);
-                    myWriter.close();
-                }
+                Data.updateBook(bookEdited);
 
                 loadBooks();
                 search.setText("");
+
             }
         }
     }
 
     @FXML
     protected void deleteBook() throws IOException {
+
+        // Recovering Item Seleted
         ObservableList<Integer> selectedIndices = booksList.getSelectionModel().getSelectedIndices();
 
         if (selectedIndices.size() == 1) {
             String bookToEdit = booksList.getItems().get(selectedIndices.get(0));
-            String oldIsbn = bookToEdit.split(";")[2];
-            Path p = Paths.get("src/main/data/" + oldIsbn + ".txt");
-            File fileToDelete = new File(p.toString());
-            fileToDelete.delete();
+
+            String oldIsbn = bookToEdit.split(";")[1];
+
+            Data.removeBook(oldIsbn);
+
 
             loadBooks();
             search.setText("");
@@ -135,32 +137,7 @@ public class LibraryController implements Initializable {
                         category_text,
                         author_text);
 
-        //OLD IMPLEMENTATION
-        /*
-        String book_text = book.getText();
-        String isbn_text = isbn.getText();
-        String category_text = category.getText();
-        String author_text = author.getText();
 
-        StringBuilder sb = new StringBuilder();
-        sb.append(author_text);
-        sb.append(";");
-        sb.append(book_text);
-        sb.append(";");
-        sb.append(isbn_text);
-        sb.append(";");
-        sb.append(category_text);
-
-        String data = new String(sb);
-        Path p = Paths.get("src/main/data/" + isbn_text + ".txt");
-        File myObj = new File(String.valueOf(p));
-
-        if(myObj.createNewFile()) {
-            FileWriter myWriter = new FileWriter(String.valueOf(p));
-            myWriter.write(data);
-            myWriter.close();
-        }
-        */
 
         // reset fields
         author.setText("");
@@ -206,10 +183,11 @@ public class LibraryController implements Initializable {
 
     public static void changeScene() throws IOException {
 
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("library.fxml"));
+//        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("library.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("manage-books.fxml"));
         Scene scene = new Scene(fxmlLoader.load()); // scene
 
-        Stage stage = HelloApplication.getPrimaryStage();
+        Stage stage = App.getPrimaryStage();
         stage.hide();
         stage.setTitle("Library Management System");
         stage.setScene(scene);

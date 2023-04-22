@@ -81,7 +81,7 @@
                         <id>default-cli</id>
                         <configuration>
                             <mainClass>
-                                library.main.librarymanagementsystem/library.main.librarymanagementsystem.HelloApplication
+                                library.main.librarymanagementsystem/library.main.librarymanagementsystem.App
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
