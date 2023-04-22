@@ -14,7 +14,6 @@ import library.main.librarymanagementsystem.models.Book;
 import java.io.*;
 import java.net.URL;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Objects;
@@ -23,7 +22,7 @@ import java.util.ResourceBundle;
 public class LibraryController implements Initializable {
 
     @FXML
-    private ListView<String> booksList;
+    private ListView<String> booksListView;
 
     @FXML
     private TextField author;
@@ -48,7 +47,7 @@ public class LibraryController implements Initializable {
             e.printStackTrace();
         }
 
-        booksList.setFixedCellSize(50.0);
+        booksListView.setFixedCellSize(50.0);
     }
 
     @FXML
@@ -59,14 +58,14 @@ public class LibraryController implements Initializable {
         if (search_text.length() >= 3) {
             ArrayList<String> results = new ArrayList<>();
 
-            for(String book: booksList.getItems()) {
+            for(String book: booksListView.getItems()) {
                 if (book.toLowerCase().contains(search_text)) results.add(book);
             }
 
-            booksList.getItems().clear();
+            booksListView.getItems().clear();
             if (results.size() > 0) {
-                for(String found_book: results) booksList.getItems().add(found_book);
-                booksList.refresh();
+                for(String found_book: results) booksListView.getItems().add(found_book);
+                booksListView.refresh();
             }
         }
     }
@@ -75,12 +74,12 @@ public class LibraryController implements Initializable {
     protected void editBook() throws IOException {
 
         // Recovering the item selected
-        ObservableList<Integer> selectedIndices = booksList.getSelectionModel().getSelectedIndices();
+        ObservableList<Integer> selectedIndices = booksListView.getSelectionModel().getSelectedIndices();
 
         // Veryfing if one item was seleted
         if (selectedIndices.size() == 1) {
 
-            String bookToEdit = booksList.getItems().get(selectedIndices.get(0));
+            String bookToEdit = booksListView.getItems().get(selectedIndices.get(0));
             String[] oldData = bookToEdit.split(";");
 
             System.out.println("oldData Array "+ oldData);
@@ -109,10 +108,10 @@ public class LibraryController implements Initializable {
     protected void deleteBook() throws IOException {
 
         // Recovering Item Seleted
-        ObservableList<Integer> selectedIndices = booksList.getSelectionModel().getSelectedIndices();
+        ObservableList<Integer> selectedIndices = booksListView.getSelectionModel().getSelectedIndices();
 
         if (selectedIndices.size() == 1) {
-            String bookToEdit = booksList.getItems().get(selectedIndices.get(0));
+            String bookToEdit = booksListView.getItems().get(selectedIndices.get(0));
 
             String oldIsbn = bookToEdit.split(";")[1];
 
@@ -167,7 +166,7 @@ public class LibraryController implements Initializable {
 
         ArrayList<String> al = listFilesForFolder(folder);*/
 
-        booksList.getItems().clear();
+        booksListView.getItems().clear();
 
         // FIRST IMPLEMENTATION
 //        for(String book: al) {
@@ -175,10 +174,10 @@ public class LibraryController implements Initializable {
 //        }
         // SECOND IMPLEMENTATION
         for(Book book: Data.requestBooks()) {
-            booksList.getItems().add(book.toString());
+            booksListView.getItems().add(book.toString());
         }
 
-        booksList.refresh();
+        booksListView.refresh();
     }
 
 
