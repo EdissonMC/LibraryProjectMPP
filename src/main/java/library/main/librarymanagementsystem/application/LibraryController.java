@@ -66,6 +66,7 @@ public class LibraryController implements Initializable {
             if (results.size() > 0) {
                 for(String found_book: results) booksListView.getItems().add(found_book);
                 booksListView.refresh();
+                search.setText("");
             }
         }
     }
@@ -82,7 +83,7 @@ public class LibraryController implements Initializable {
             String bookToEdit = booksListView.getItems().get(selectedIndices.get(0));
             String[] oldData = bookToEdit.split(";");
 
-            System.out.println("oldData Array "+ oldData);
+            System.out.println("oldData Array "+ oldData.toString());
 //            String oldIsbn = bookToEdit.split(";")[2];
 
 
@@ -126,16 +127,17 @@ public class LibraryController implements Initializable {
     @FXML
     protected void addItem() throws IOException {
 
-        String book_name_text = book.getText();
+        /*String book_name_text = book.getText();
         String isbn_text = isbn.getText();
         String category_text = category.getText();
         String author_text = author.getText();
-
+*/
         // validate data
         if(!isValidData())
         {
            // System.out.println(isValidData());
-            Data.createBook(book.getText(), isbn.getText(), category.getText(), author.getText());
+            Data.createBook(book.getText(), isbn.getText(),
+                    category.getText(), author.getText());
             //System.out.println("Hello from data");
 
             // reset fields
