@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import library.main.librarymanagementsystem.App;
+import library.main.librarymanagementsystem.application.dialog.DialogError;
 import library.main.librarymanagementsystem.data.Data;
 import library.main.librarymanagementsystem.models.Book;
 
@@ -142,6 +143,8 @@ public class LibraryController implements Initializable {
 
             // reset fields
             clearFields();
+        }else {
+            new DialogError("Validation Error","Check you fields");
         }
 
         // reaload the books list
