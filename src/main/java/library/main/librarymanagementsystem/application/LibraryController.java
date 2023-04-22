@@ -160,11 +160,10 @@ public class LibraryController implements Initializable {
 
 
     public void loadBooks() throws IOException {
-        Path p = Paths.get("src/main/data");
+       /* Path p = Paths.get("src/main/data");
         final File folder = new File(String.valueOf(p));
 
-
-        ArrayList<String> al = listFilesForFolder(folder);
+        ArrayList<String> al = listFilesForFolder(folder);*/
 
         booksList.getItems().clear();
 
