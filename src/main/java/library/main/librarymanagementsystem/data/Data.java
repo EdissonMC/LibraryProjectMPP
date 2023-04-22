@@ -77,6 +77,16 @@ public class Data {
         System.out.println("list books UPDATED..." + listBooks);
     }
 
+
+
+    // DATA MOCK REQUEST TO THE DATABASE
+
+    public static  List<LibraryMember> requestMembers(){
+        return listMembers;
+    }
+
+
+
     public static void main(String[] args) {
 //        removeBook("123");
 //        removeBook("124");

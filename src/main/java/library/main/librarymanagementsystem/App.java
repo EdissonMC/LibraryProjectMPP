@@ -40,7 +40,11 @@ public class App extends Application {
 
 
     @FXML
-    protected void onStartButtonClick() throws IOException {
-        LibraryController.changeScene();
+    protected void onManageBooksButtonClick() throws IOException {
+        LibraryController.changeScene("manage-books.fxml");
+    }
+    @FXML
+    protected void onManageMembersButtonClick() throws IOException {
+        LibraryController.changeScene("manage-members.fxml");
     }
 }

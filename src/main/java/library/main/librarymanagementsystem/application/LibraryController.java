@@ -159,18 +159,9 @@ public class LibraryController implements Initializable {
 
 
     public void loadBooks() throws IOException {
-       /* Path p = Paths.get("src/main/data");
-        final File folder = new File(String.valueOf(p));
-
-        ArrayList<String> al = listFilesForFolder(folder);*/
 
         booksListView.getItems().clear();
 
-        // FIRST IMPLEMENTATION
-//        for(String book: al) {
-//            booksList.getItems().add(book);
-//        }
-        // SECOND IMPLEMENTATION
         for(Book book: Data.requestBooks()) {
             booksListView.getItems().add(book.toString());
         }
@@ -179,10 +170,11 @@ public class LibraryController implements Initializable {
     }
 
 
-    public static void changeScene() throws IOException {
+    public static void changeScene(String resourceName) throws IOException {
 
 //        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("library.fxml"));
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("manage-books.fxml"));
+//        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("manage-books.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(resourceName));
         Scene scene = new Scene(fxmlLoader.load()); // scene
 
         Stage stage = App.getPrimaryStage();
