@@ -132,20 +132,22 @@ public class LibraryController implements Initializable {
         String category_text = category.getText();
         String author_text = author.getText();
 
-        Data.createBook(book_name_text,
-                        isbn_text,
-                        category_text,
-                        author_text);
+        // validate data
+        if(!isValidData())
+        {
+            System.out.println(isValidData());
+            Data.createBook(book_name_text, isbn_text, category_text, author_text);
+            System.out.println("Hello from data");
 
+        }
 
-
-        // reset fields
-        author.setText("");
-        book.setText("");
-        isbn.setText("");
-        category.setText("");
         // reaload the books list
         this.loadBooks();
+
+        // reset fields
+        clearFields();
+
+
     }
 
     public static ArrayList<String> listFilesForFolder(final File folder) throws IOException {
@@ -191,6 +193,19 @@ public class LibraryController implements Initializable {
         stage.setTitle("Library Management System");
         stage.setScene(scene);
         stage.show();
+    }
+
+
+    private boolean isValidData() {
+        return book.getText().equals("") && isbn.getText().equals("") && category.getText().equals("") &&
+                author.getText().equals("");
+    }
+
+    private void clearFields() {
+        author.setText("");
+        book.setText("");
+        isbn.setText("");
+        category.setText("");
     }
 
 }

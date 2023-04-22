@@ -27,10 +27,10 @@ public class Data {
         return listBooks;
     }
 
-    public static boolean createBook(String nameBook, String isbn ,String category,String nameAuthor){
+    public static void createBook(String nameBook, String isbn ,String category,String nameAuthor){
         Book book= new Book(nameBook,isbn, category,nameAuthor);
         listBooks.add(book);
-        return true;
+       // return true;
     };
 
     public static void removeBook(String oldIsbn){
