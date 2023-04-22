@@ -3,6 +3,7 @@ package library.main.librarymanagementsystem.data;
 import library.main.librarymanagementsystem.models.Book;
 import library.main.librarymanagementsystem.models.LibraryMember;
 
+import java.lang.reflect.Member;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -27,8 +28,16 @@ public class Data {
         listBooks.add(book3);
 
         /*INITIALIZING MEMBERS*/
-
-
+        LibraryMember member1 = new LibraryMember("Pancho");
+        LibraryMember member2 = new LibraryMember("Pincho");
+        LibraryMember member3 = new LibraryMember("Poncho");
+        LibraryMember member4 = new LibraryMember("Flor");
+        LibraryMember member5 = new LibraryMember("Girasol");
+        listMembers.add(member1);
+        listMembers.add(member2);
+        listMembers.add(member3);
+        listMembers.add(member4);
+        listMembers.add(member5);
     }
     public Data() {
 
