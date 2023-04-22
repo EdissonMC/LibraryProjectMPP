@@ -134,18 +134,16 @@ public class LibraryController implements Initializable {
         // validate data
         if(!isValidData())
         {
-            System.out.println(isValidData());
-            Data.createBook(book_name_text, isbn_text, category_text, author_text);
-            System.out.println("Hello from data");
+           // System.out.println(isValidData());
+            Data.createBook(book.getText(), isbn.getText(), category.getText(), author.getText());
+            //System.out.println("Hello from data");
 
+            // reset fields
+            clearFields();
         }
 
         // reaload the books list
         this.loadBooks();
-
-        // reset fields
-        clearFields();
-
 
     }
 
@@ -196,8 +194,8 @@ public class LibraryController implements Initializable {
 
 
     private boolean isValidData() {
-        return book.getText().equals("") && isbn.getText().equals("") && category.getText().equals("") &&
-                author.getText().equals("");
+        return (book.getText().equals("") || isbn.getText().equals("") || category.getText().equals("") ||
+                author.getText().equals(""));
     }
 
     private void clearFields() {
